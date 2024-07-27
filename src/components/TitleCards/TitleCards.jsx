@@ -1,38 +1,52 @@
-import React, { useEffect, useRef } from 'react'
-import './TitleCards.css'
-import cards_data from '../../assets/cards/Cards_data'
+import React, { useEffect, useRef, useState } from 'react';
+import './TitleCards.css';
 
-const TitleCards = ({title, category}) => {
+const TitleCards = ({ title, category }) => {
+  const [apiData, setApiData] = useState([]);
   const cardsRef = useRef();
 
-  const handleWheel = (event) => {
-    event.preventDefault();
-    cardsRef.current.scrollLeft += event.deltaY;
-  }
+  const API_KEY = 'a46c8f1d9443635383b11724ba4cacb7'; // Your API key
+  const BASE_URL = 'https://api.themoviedb.org/3';
+  const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/movie/${category || 'now_playing'}?api_key=${API_KEY}&language=en-US&page=1`);
+      const data = await response.json();
+      setApiData(data.results);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
+    fetchMovies();
+    
     const currentRef = cardsRef.current;
+    const handleWheel = (event) => {
+      event.preventDefault();
+      currentRef.scrollLeft += event.deltaY;
+    };
+
     currentRef.addEventListener('wheel', handleWheel);
     return () => {
       currentRef.removeEventListener('wheel', handleWheel);
-    }
-  }, [])
+    };
+  }, [category]);
 
   return (
     <div className='title-cards'>
-      <h2>{title?title:"Popular on Netflix"}</h2>
+      <h2>{title || 'Popular on Netflix'}</h2>
       <div className="card-list" ref={cardsRef}>
-        {cards_data.map((card, index) => {
-          return (
-            <div className="card" key={index}>
-              <img src={card.image} alt="" />
-              <p>{card.name}</p>
-            </div>
-          );
-        })}
+        {apiData.map((card, index) => (
+          <div className="card" key={index}>
+            <img src={`${IMAGE_BASE_URL}${card.backdrop_path}`} alt={card.original_title} />
+            <p>{card.original_title}</p>
+          </div>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TitleCards
+export default TitleCards;

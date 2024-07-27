@@ -7,6 +7,7 @@
     -webkit-mask-image: linear-gradient(to right, transparent, black 75%);
 }
 .hero-caption{
+    
     position: absolute;
     width: 100%;
     padding-left: 6%;
@@ -52,4 +53,7 @@
 }
 .hero-btns .btn.dark-btn:hover{
     background: #6d6d6e66;
+}
+.more-cards{
+    padding-left: 6%;
 }

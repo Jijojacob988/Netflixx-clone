@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './TitleCards.css';
+import { Link } from 'react-router-dom';
 
 const TitleCards = ({ title, category }) => {
   const [apiData, setApiData] = useState([]);
   const cardsRef = useRef();
 
-  const API_KEY = 'a46c8f1d9443635383b11724ba4cacb7'; // Your API key
-  const BASE_URL = 'https://api.themoviedb.org/3';
+  const API_KEY = 'a46c8f1d9443635383b11724ba4cacb7'; 
+  const BASE_URL = 'https://api.themoviedb.org/3';    
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
   const fetchMovies = async () => {
@@ -39,10 +40,10 @@ const TitleCards = ({ title, category }) => {
       <h2>{title || 'Popular on Netflix'}</h2>
       <div className="card-list" ref={cardsRef}>
         {apiData.map((card, index) => (
-          <div className="card" key={index}>
+          <Link to={`/player/${card.id}`} className="card" key={index}>
             <img src={`${IMAGE_BASE_URL}${card.backdrop_path}`} alt={card.original_title} />
             <p>{card.original_title}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,5 +1,7 @@
 # **Netflix Clone - Full Stack Streaming App**
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://funny-monstera-176f90.netlify.app/)
+
 This is a **Full Stack Netflix Clone** built using **React, Firebase, and TMDB API**. It allows users to **browse movies, watch trailers, authenticate using Firebase, and fetch movie details from TMDB API**.
 
 ## 🚀 **Features**
@@ -68,6 +70,9 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 npm start
 ```
 Now open **http://localhost:3000** to use the app.
+
+## 🌐 **Live Demo**
+🔗 **[Live Demo](https://funny-monstera-176f90.netlify.app/)**
 
 ## 🌐 **Deployment**
 ### **Frontend Deployment (Vercel)**
